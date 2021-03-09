@@ -1,0 +1,9 @@
+GCD
+*********************************************************************************
+b'<span></span><span class="k">let</span> gcd a b <span class="o">=</span>\n  <span class="k">if</span> b <span class="o">==</span> <span class="m">0</span> <span class="k">then</span>\n    a\n  <span class="k">else</span>\n    gcd b (a % b)\n\ngcd <span class="m">49</span> <span class="m">35</span>'
+*********************************************************************************
+
+Tracing monad
+*********************************************************************************
+b'<span></span><span class="k">let</span> traceMonad <span class="o">=</span> {\n  <span class="k">return</span>: <span class="o">\\</span>x <span class="o">-&gt;</span>\n    console.log <span class="s">&quot;Return:&quot;</span> x\n    x\n  bind: <span class="o">\\</span>x f <span class="o">-&gt;</span>\n    console.log <span class="s">&quot;Binding:&quot;</span> x\n    f x\n}\n\nconsole.log (<span class="k">do</span> traceMonad\n  w <span class="o">&lt;-</span> <span class="m">1</span>\n  <span class="k">let</span> x <span class="o">=</span> <span class="m">2</span>\n  y <span class="o">&lt;-</span> <span class="m">3</span>\n  z <span class="o">&lt;-</span> <span class="m">4</span>\n  <span class="k">return</span> w + x + y + z\n)'
+*********************************************************************************

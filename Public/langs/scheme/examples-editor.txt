@@ -1,0 +1,25 @@
+Y Combinator
+********************************************************************************
+(((lambda (f)
+    ((lambda (proc)
+       (f (lambda (arg) ((proc proc) arg))))
+     (lambda (proc)
+       (f (lambda (arg) ((proc proc) arg))))))
+  (lambda (self)
+    (lambda (ls)
+      (if (null? ls) 0 (+ 1 (self (cdr ls)))))))
+ '(a b c d e))
+********************************************************************************
+
+Macro
+********************************************************************************
+(define-macro for
+  (lambda (iterator start end . body)
+    `(let loop ((,iterator ,start))
+      (if (<= ,iterator ,end)
+      (loop (+ ,iterator 1) (begin ,@body))))))
+
+(for x 1 10
+  (define y (* x 2))
+  (print x " + " x " = " y))
+********************************************************************************

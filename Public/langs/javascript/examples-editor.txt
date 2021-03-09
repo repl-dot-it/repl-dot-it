@@ -1,0 +1,24 @@
+Class
+********************************************************************************
+function Person(name, job) {
+  this.name = name;
+  this.job = job;
+  this.print = function() {
+    console.log(this.name + ', ' + this.job);
+  };
+}
+var thatGuy = new Person("Jack", "coder");
+thatGuy.print();
+********************************************************************************
+
+Fibonacci
+********************************************************************************
+function fib(n) {
+  if (n < 2) {
+    return n;
+  } else {
+    return fib(n - 1) + fib(n - 2);
+  }
+}
+console.log("Fib(9) = " + fib(9));
+********************************************************************************

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/Product">
+  <head>
+    <title>repl-dot-it</title>
+    <script>
+      // Redirect old hash url to new.
+      (function () {
+        var loc = window.location,
+            parts = loc.hash.split(':'),
+            session_path = parts[0].slice(1),
+            page = parts[1];
+        if (page || session_path) {
+          var loc = loc.protocol + '//' +  loc.host  + '/';
+          if (session_path) loc += session_path + '/';
+          if (page) loc += page;
+          window.location.href = loc;
+        }
+      })();
+    </script>
+
+    <!-- Icons -->
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/vnd.microsoft.icon" />
+    <link rel="apple-touch-icon" href="/images/apple-touch-icon.png" type="image/png" />
+
+    <!-- Scripts -->
+    <link type="text/css" rel="stylesheet" href="/css/style.css?{{CACHE_BUSTER}}" />
+    <link type="text/css" rel="stylesheet" href="/css/print.css?{{CACHE_BUSTER}}" media="print" />
+    <link type="text/css" rel="stylesheet" href="/css/ansi.css?{{CACHE_BUSTER}}" />
+
+    <!-- Application -->
+    <!-- <script src="/jquery.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- jsREPL -->
+    <script src="/jsrepl/repl.js?{{CACHE_BUSTER}}" id="jsrepl-script"></script>
+    <script src="/jsrepl/languages.js?{{CACHE_BUSTER}}"></script>
+    <!-- repl-dot-it -->
+    <script src="/lib/jqconsole-2.10.0.min.js"></script>
+    <script src="/lib/bootstrap-tooltip.js"></script>
+    <script src="/lib/page.js"></script>
+    <script src="/src/base.js?{{CACHE_BUSTER}}"></script>
+    <script src="/src/browser-check.js?{{CACHE_BUSTER}}"></script>
+    <script src="/src/dom.js?{{CACHE_BUSTER}}"></script>
+    <script src="/src/repl.js?{{CACHE_BUSTER}}"></script>
+    <script src="/src/pager.js?{{CACHE_BUSTER}}"></script>
+    <script src="/src/router.js?{{CACHE_BUSTER}}"></script>
+    <script src="/src/session.js?{{CACHE_BUSTER}}"></script>
+    <script src="/src/languages.js?{{CACHE_BUSTER}}"></script>
+
+    <!--/UNBAKED-->
+    <script src="/lib/ace/ace.js"></script>
+    <!-- Session -->
+    <script>try{ {{SESSION_PLACEHOLDER}} } catch(e) {}</script>
+
+    <!-- Facebook -->
+    <meta property="og:title" content="repl-dot-it" />
+    <meta property="og:description" content="Run code in a variety of languages from your browser!" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://repldotit.com/" />
+    <meta property="og:image" content="http://repldotit.com/images/logo-small.png" />
+    <meta property="og:site_name" content="repldotit.com" />
+    <meta property="fb:app_id" content="111098168994577" />
+
+    <!-- G+ -->
+    <meta itemprop="name" content="repl-dot-it" />
+    <meta itemprop="description" content="Run code in a variety of languages from your browser!" />
+    <meta itemprop="image" content="http://repldotit.com/images/logo-small.png" />
+
+    <!-- Mobiles -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1">
+
+    <!-- General -->
+    <meta name="description" content="Online Interpreters in JavaScript. Try Python, Ruby, Scheme, Lua, CoffeeScript and more programming languages. Online coding and REPL. Run and share code.">
+    <meta name="keywords" content="Online,Interpreters,JavaScript,Python,Ruby,Scheme,APL,Lua,CoffeeScript,Forth,QBasic,terminal,console,share,run,code,coding,programming,esoteric,languages,web,REPL">
+    <meta name="author" content="Amjad Masad, Max Shawabkeh, Piero Maddaleni, and Spotandjake">
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <div id="header">
+      <a id="logo" href="/languages"><img src="/images/logo-small.png" width="173" height="60" alt="repl-dot-it" /></a>
+      <div id="buttons">
+        <!-- Warning: inline elements, any white space would break the layout --> 
+       <a href="/languages"><div id="button-languages" class="button left" title="Languages"></div></a><a href="/examples"><div id="button-examples" class="button middle" title="Examples"></div></a><div id="button-save" class="button middle" title="Save"></div><a href="/help"><div id="button-help" class="button right" title="Help"></div></a>
+      </div>
+      <h1 id="title">Online Interpreter</h1>
+    </div>
+    <div id="main">
+      <div id="resize-left"></div>
+
+      <!-- Main wokspace area with editor and console. -->
+      <div id="content-workspace" class="page">
+        <div id="editor">
+          <div id="editor-run" class="button"></div>
+          <div id="editor-widget"></div>
+          <div id="unhide-left"></div>
+        </div>
+        <div id="resize-center"></div>
+        <div id="console">
+          <div id="replay-button" class="button">Run Session</div>
+          <div id="progress"><div id="progress-fill"></div></div>
+          <div id="unhide-right"></div>
+        </div>
+      </div>
+      <!-- Language selector. -->
+      <!-- NOTE: tabindex needed for it to receive focus. -->
+      <div id="content-languages" class="page" tabindex="0">
+        <h2 class="content-title">Select a Language</h2>
+        <div id="languages-back" class="page-close"></div>
+        <div class="language-group">
+          <h3 class="language-group-header">Classic</h3>
+          <ul>
+          <li>
+          <a href="/languages/QBasic"><b><em>Q</em>Basic:</b>&nbsp;
+            Structured programming for beginners.</a>
+        </li><li>
+          <a href="/languages/Forth"><b>Fort<em>h</em>:</b>&nbsp;
+            An interactive stack-oriented language.</a>
+        </li><li>
+          <a href="/languages/APL"><b><em>A</em>PL:</b>&nbsp;
+            An array-oriented language using funny characters</a>
+        </li>
+          </ul>
+        </div>
+        <div class="language-group">
+          <h3 class="language-group-header">Practical</h3>
+          <ul>
+          <li>
+          <a href="/languages/Ruby"><b><em>R</em>uby (beta):</b>&nbsp;
+            A natural dynamic object-oriented language.</a>
+        </li><li>
+          <a href="/languages/Python"><b><em>P</em>ython:</b>&nbsp;
+            A dynamic language emphasizing readability.</a>
+        </li><li>
+          <a href="/languages/Lua"><b><em>L</em>ua:</b>&nbsp;
+            A lightweight multi-paradigm scripting language.</a>
+        </li><li>
+          <a href="/languages/Scheme"><b><em>S</em>cheme:</b>&nbsp;
+            An elegant dynamic dialect of Lisp.</a>
+        </li>
+          </ul>
+        </div>
+        <div class="language-group">
+          <h3 class="language-group-header">Esoteric</h3>
+          <ul>
+          <li>
+          <a href="/languages/Emoticon"><b><em>E</em>moticon:</b>&nbsp;
+            Programming with an extra dose of smile.</a>
+        </li><li>
+          <a href="/languages/Brainfuck"><b>Brain<em>F</em>***:</b>&nbsp;
+            A pure Turing machine controller.</a>
+        </li><li>
+          <a href="/languages/LOLCODE"><b>L<em>O</em>LCODE:</b>&nbsp;
+            The basic language of lolcats.</a>
+        </li><li>
+          <a href="/languages/Unlambda"><b><em>U</em>nlambda:</b>&nbsp;
+            Functional purity given form.</a>
+        </li><li>
+          <a href="/languages/Bloop"><b><em>B</em>loop:</b>&nbsp;
+            Nothing but bounded loops.</a>
+        </li>
+          </ul>
+        </div>
+        <div class="language-group">
+          <h3 class="language-group-header">Web</h3>
+          <ul>
+          <li>
+          <a href="/languages/JavaScript"><b><em>J</em>avaScript:</b>&nbsp;
+            The de facto language of the Web.</a>
+        </li><li>
+          <a href="/languages/Traceur"><b>Javascript.<em>n</em>ext:</b>&nbsp;
+            The JavaScript of tomorrow.</a>
+        </li><li>
+          <a href="/languages/Move"><b><em>M</em>ove:</b>&nbsp;
+            The easy way to program the web.</a>
+        </li><li>
+          <a href="/languages/Kaffeine"><b><em>K</em>affeine:</b>&nbsp;
+            Extended JavaScript for pros.</a>
+        </li><li>
+          <a href="/languages/CoffeeScript"><b><em>C</em>offeeScript:</b>&nbsp;
+            Unfancy JavaScript.</a>
+        </li><li>
+          <a href="/languages/Roy"><b>Ro<em>y</em>:</b>&nbsp;
+            Small functional language that compiles to JavaScript.</a>
+        </li>
+          </ul>
+        </div>
+    </div>
+      <!-- Examples page. -->
+      <div id="content-examples" class="page">
+        <h2 class="content-title">Example Code</h2>
+        <div id="examples-back" class="page-close"></div>
+        <div id="examples-editor"></div>
+        <div id="examples-separator"></div>
+        <div id="examples-console"></div>
+      </div>
+      <!-- Help page. -->
+      <div id="content-help" class="page">
+        <h2 class="content-title">Help</h2>
+        <div id="help-back" class="page-close"></div>
+        <div id="help-faq">
+          <div class="help-header">FAQ</div>
+          <div class="faq-question">What is repl-dot-it?</div>
+          <div class="faq-answer">It is an online environment for interactively exploring programming languages. The name comes from the <a href="http://en.wikipedia.org/wiki/REPL">read-eval-print loop</a>, the interactive toplevel used by languages like Lisp and Python.</div>
+
+          <div class="faq-question">How do I start?</div>
+          <div class="faq-answer">Once you have selected a language, start by typing an expression into the console on the right side of the screen and pressing Enter. Your expression will be evaluated in the selected language and its result will be printed. Repeat until satisfied. You can also try some ready-to-run examples by clicking on the button labeled "eg".</div>
+
+          <div class="faq-question">Can I use variables or other state?</div>
+          <div class="faq-answer">Yes! The repl-dot-it interpreters fully support variables, state and side effects in all the supported languages.</div>
+
+          <div class="faq-question">Can I save my session?</div>
+          <div class="faq-answer">Yes! You can save your session and share it with others by clicking on the chain link icon in the top right corner. Both the editor's content and the REPL session will be preserved and can be executed once again using the created link to continue from where you left off.</div>
+
+          <div class="faq-question">Is repl-dot-it open source?</div>
+          <div class="faq-answer">Yes! You can explore the code and contribute to various parts of repl-dot-it through <a href="https://github.com/repl-dot-it">our GitHub repositories</a>.</div>
+
+          <div class="faq-question">Can I use repl-dot-it on my phone or tablet?</div>
+          <div class="faq-answer">Yes! As a web application, repl-dot-it can be used on any device that has a modern web browser. Currently, we have full support for Android devices, and partial support for iOS.</div>
+
+          <div class="faq-question">How does repl-dot-it work?</div>
+          <div class="faq-answer">All code processed by repl-dot-it runs entirely on your computer, with no server-side evaluation. It uses language interpreters written in JavaScript to execute your code and keep track of state. Some of the interpreters (like BiwaScheme) are originally implemented in JavaScript, while others (like Python) were compiled from their original lower-level implementations using <a href="http://emscripten.org/">Emscripten</a>.</div>
+        </div>
+        <div id="help-shortcuts">
+          <div class="help-header">Console Shortcuts</div>
+          <div id="help-shortcuts-content">
+            <div class="shortcut"><kbd>Enter</kbd></div> Evaluate the entered command.<br />
+            <div class="shortcut"><kbd>Shift<em>+</em>Enter</kbd></div> Continue to the next line.<br />
+            <div class="shortcut"><kbd>Tab</kbd></div> Indent.<br />
+            <div class="shortcut"><kbd>Shift<em>+</em>Tab</kbd></div> Unindent.<br />
+            <div class="shortcut"><kbd>Up</kbd></div> Previous history item.<br />
+            <div class="shortcut"><kbd>Down</kbd></div> Next history item.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>Up</kbd></div> Move to the line above the cursor.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>Down</kbd></div> Move to the line below the cursor.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>E</kbd></div> Move to the end of the current line.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>A</kbd></div> Move to the start of the current line.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>K</kbd></div> Clears the console.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>Z</kbd></div> Cancel current prompt.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>L</kbd></div> Open languages selector.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>G</kbd></div> Open examples preview.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>H</kbd></div> Open this help page.<br />
+            <div class="shortcut"><kbd>Ctrl<em>+</em>S</kbd></div> Save session (new revision).<br />
+            <div class="shortcut"><kbd>Escape</kbd></div> Close current view.<br />
+          </div>
+        </div>
+      </div>
+
+      <!-- About page. -->
+      <div id="content-about" class="page">
+        <h2 class="content-title">About Us</h2>
+        <div id="about-back" class="page-close"></div>
+        <p>The repl-dot-it project is an attempt to create an online environment for interactively exploring programming languages. It provides a fully-featured terminal emulator and code editor, powered by interpreter engines for more than 15 languages.</p>
+        <p>All our interpreters are written in (or compiled to) JavaScript, and run completely on the user's device, regardless or whether it's a desktop, laptop or phone.</p>
+        <p>The repl-dot-it code is open source and is available on <a href="https://github.com/repl-dot-it">GitHub</a>.</p>
+        <p>&nbsp;</p>
+        <p><a href="https://twitter.com/amasad"><img src="/images/amjad.jpg" alt="Amjad Masad" /></a><a href="https://twitter.com/amasad">Amjad Masad</a> is a programmer at <a href="http://codecademy.com">Codecademy</a> and a JavaScript fanatic. He usually does frontend development, but is also known to dabble in server stuff. He drives fast cars and likes good food.</p>
+		<p><a href="http://max99x.com/"><img src="/images/max.jpg" alt="Max Shawabkeh" /></a><a href="http://max99x.com/">Max Shawabkeh</a> is a software engineer at Google and a Python enthusiast. He fancies himself a jack of many programming trades but a master of none. He reads fantasy books and likes good food.</p>
+		<p><a href="https://piemadd.com/"><img src="/images/piero.png" alt="Piero Maddaleni" /></a><a href="http://piemadd.com/">Piero Maddaleni</a> is a social media manager at <a href="https://replit.com/">Replit</a> and likes to program in his free time.</p>
+		<br>
+		<p><a href="https://replit.com/@Spotandjake"><img src="/images/spot.png" alt="Spotandjake" /></a><a href="https://replit.com/@Spotandjake">Spotandjake</a> is a mysterious figure who is a part of the <a href="https://replit.com/">Replit</a> community.</p>
+		<p>&nbsp;</p>
+        <p>This application is a result of Amjad and Max's sushi-powered collaboration along with the revival of the project from Piero and Spotandjake.</p>
+      </div>
+
+      <div id="resize-right"></div>
+    </div>
+    <!-- Browser fallback page. -->
+    <div id="content-fallback">
+      <div id="fallback-header">Browser Version Not Supported</div>
+      <div id="fallback-content">
+        Due to repl-dot-it's reliance on advanced JavaScript techniques, older browsers might have problems running it correctly. Please download the latest version of your favourite browser.
+        <br />
+        <a href="http://www.google.com/chrome" id="browser-chrome">Chrome 13+</a>
+        <a href="http://www.mozilla.org/firefox/" id="browser-firefox">Firefox 4+</a>
+        <a href="http://www.opera.com/download/" id="browser-opera">Opera 11.51+</a>
+        <br />
+        <a href="http://windows.microsoft.com/en-US/internet-explorer/downloads/ie" id="browser-ie">IE 10+</a>
+        <a href="http://www.apple.com/safari/download/" id="browser-safari">Safari 5+</a>
+        <div id="fallback-ignore">Let me try anyway!</div>
+      </div>
+    </div>
+    <!-- Session save box. -->
+    <div id="save-box">
+      <div id="save-box-handle"></div>
+      <label for="save-box-link">Share on:</label>
+      <ul class="share-list">
+        <li class="share-social facebook"><a href="#"></a></li>
+        <li class="share-social twitter"><a href="#"></a></li>
+        <li class="share-social gplus"><a href="#"></a></li>
+      </ul>
+      <input id="save-box-link" type="text" value="" />
+      <label>Download:</label>
+      <ul class="downloads">
+        <li><a class="editor" href="#">Editor content</a></li>
+        <li><a class="repl" href="#">REPL session</a></li>
+      </ul>
+        
+    </div>
+    <div id="footer">
+      <div id="links">
+        <a href="/about" id="link-about">about us</a>
+        <a href="https://github.com/repl-dot-it" id="link-source-code" target="_blank">source code</a>
+        <a href="/" id="language-about-link" target="_blank"> </a>
+        <a href="/" id="language-engine-link" target="_blank"> </a>
+      </div>
+    </div>
+  </body>
+</html>

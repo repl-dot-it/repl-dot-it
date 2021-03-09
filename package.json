@@ -1,0 +1,8 @@
+{
+  "requires": true,
+  "lockfileVersion": 1,
+  "dependencies": {
+    "coffeescript": "^2.5.1",
+    "express": "^4.17.1"
+  }
+}

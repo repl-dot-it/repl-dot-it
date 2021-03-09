@@ -1,0 +1,26 @@
+Fibonacci
+********************************************************************************
+DEFINE PROCEDURE ''MINUS'' [M,N]:
+BLOCK 0: BEGIN
+  IF M < N, THEN:
+  QUIT BLOCK 0;
+  LOOP AT MOST M + 1 TIMES:
+  BLOCK 1: BEGIN
+    IF OUTPUT + N = M, THEN:
+    ABORT LOOP 1;
+    OUTPUT <= OUTPUT + 1;
+  BLOCK 1: END;
+BLOCK 0: END.
+
+DEFINE PROCEDURE ''FIB''[N]:
+BLOCK 0: BEGIN
+  IF N < 1, THEN:
+  QUIT BLOCK 0;
+  OUTPUT <= 1;
+  IF N < 3, THEN:
+  QUIT BLOCK 0;
+  OUTPUT <= FIB[MINUS[N,1]] + FIB[MINUS[N,2]];
+BLOCK 0: END.
+
+FIB[10];
+********************************************************************************

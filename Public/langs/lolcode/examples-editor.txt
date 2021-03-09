@@ -1,0 +1,26 @@
+Conditionals
+********************************************************************************
+I HAS A COLOR ITZ "GREEN"
+COLOR, WTF?
+  OMG "RED"
+  OMG "YELLOW"
+    VISIBLE COLOR " FISH", GTFO
+  OMG "GREEN"
+    VISIBLE "FISH HAS A FLAVOR", GTFO
+  OMGWTF
+    VISIBLE "FISH IS TRANSPARENT"
+OIC
+********************************************************************************
+
+Subroutine
+********************************************************************************
+I HAS A CHZBRGR ITZ "HOT"
+HOW DUZ I NOM YR FUD
+  VISIBLE "I NOMD YR " FUD
+  VISIBLE "I CAN HAZ :{CHZBRGR} BRGR NAO"
+IF U SAY SO
+
+NOM "COOKIE"
+CHZBRGR R "COLD"
+NOM "CHOKLET"
+********************************************************************************
